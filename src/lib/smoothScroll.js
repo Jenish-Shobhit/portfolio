@@ -12,7 +12,7 @@ export function startSmoothScroll() {
   };
   raf = requestAnimationFrame(loop);
   const onClick = (e) => {
-    const a = e.target.closest?.('a[href^="#"]');
+    const a = e.target.closest?.('a[href^="#"]:not([href^="#/"])');
     if (!a) return;
     e.preventDefault();
     scrollToId(a.getAttribute("href").slice(1));

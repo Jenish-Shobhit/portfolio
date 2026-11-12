@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import Magnetic from "../components/Magnetic";
 import useInViewLoop from "../lib/useInViewLoop";
 import { DETAILS, PROJECTS } from "../data/portfolio";
+import { homeSection } from "../lib/navigation";
 
 function Letters({ text }) {
   let k = 0;
@@ -94,7 +95,7 @@ export default function ProjectPage() {
       <main>
         <section data-space="case" data-agent-label={`reading · ${p.name}`} className="container-x pt-36 md:pt-44">
           <div className="flex items-center justify-between">
-            <Link to="/#work" className="link-line flex items-center gap-2 mono text-[11px] tracking-[0.25em] text-muted-foreground hover:text-foreground" data-testid="case-back-link" data-cursor="go" data-cursor-name="all work">
+            <Link to={homeSection("work")} className="link-line flex items-center gap-2 mono text-[11px] tracking-[0.25em] text-muted-foreground hover:text-foreground" data-testid="case-back-link" data-cursor="go" data-cursor-name="all work">
               <ArrowLeft size={14} /> ALL WORK
             </Link>
             <span className="mono text-[11px] tracking-[0.25em] text-muted-foreground">{String(i + 1).padStart(2, "0")} / 08</span>

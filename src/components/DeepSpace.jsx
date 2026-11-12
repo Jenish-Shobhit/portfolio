@@ -3,8 +3,10 @@ import { createPortal } from "react-dom";
 import { Play, X } from "lucide-react";
 import { YOUTUBE } from "../data/portfolio";
 import { lockScroll } from "../lib/smoothScroll";
+import useDialogFocus from "../lib/useDialogFocus";
 
 function Player({ id, onClose }) {
+  const dialogRef = useDialogFocus();
   useEffect(() => {
     lockScroll(true);
     const k = (e) => e.key === "Escape" && onClose();
@@ -15,11 +17,11 @@ function Player({ id, onClose }) {
     };
   }, [onClose]);
   return (
-    <div className="yt-modal" onClick={onClose} data-testid="easter-egg-player">
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Portfolio video" className="yt-modal" onClick={onClose} data-testid="easter-egg-player">
       <button type="button" aria-label="Close video" className="yt-close" onClick={onClose} data-testid="easter-egg-player-close" data-cursor="close" data-cursor-name="the video"><X size={18} /></button>
       <div className="w-[min(1100px,100%)] text-center">
         <div className="yt-frame" onClick={(e) => e.stopPropagation()}>
-          <iframe src={`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`} title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
+          <iframe src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`} title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
         </div>
         <a href={`https://www.youtube.com/watch?v=${id}`} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="link-line inline-block mt-5 mono text-[10px] tracking-[0.3em] text-muted-foreground hover:text-foreground" data-testid="easter-egg-open-youtube" data-cursor="open" data-cursor-name="YouTube">
           OPEN ON YOUTUBE ↗

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes, useLocation } from "react-router-dom";
 import AgentCursor from "./components/AgentCursor";
 import Nav from "./components/Nav";
 import Universe from "./components/Universe";
@@ -44,9 +44,10 @@ function Shell() {
 }
 
 export default function App() {
+  const Router = window.location.protocol === "file:" ? HashRouter : BrowserRouter;
   return (
-    <BrowserRouter>
+    <Router>
       <Shell />
-    </BrowserRouter>
+    </Router>
   );
 }

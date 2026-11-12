@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import { X } from "lucide-react";
 import { LINKS } from "./Nav";
 import { lockScroll, scrollToId } from "../lib/smoothScroll";
+import useDialogFocus from "../lib/useDialogFocus";
+import { homeSection } from "../lib/navigation";
 
 export default function MobileMenu({ home, onClose, icons }) {
+  const dialogRef = useDialogFocus();
   useEffect(() => {
     lockScroll(true);
     const k = (e) => e.key === "Escape" && onClose();
@@ -17,7 +20,7 @@ export default function MobileMenu({ home, onClose, icons }) {
   }, [onClose]);
 
   return createPortal(
-    <div className="mobile-menu" data-testid="nav-mobile-menu">
+    <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Site navigation" className="mobile-menu" data-testid="nav-mobile-menu">
       <button type="button" onClick={onClose} aria-label="Close menu" data-testid="nav-mobile-close-button" data-cursor="close" data-cursor-name="the menu" className="mobile-menu-close">
         <X size={20} />
       </button>
@@ -26,7 +29,7 @@ export default function MobileMenu({ home, onClose, icons }) {
         {LINKS.map(([key, id, title], i) => (
           <Link
             key={id}
-            to={home ? `#${id}` : `/#${id}`}
+            to={home ? `#${id}` : homeSection(id)}
             onClick={(e) => {
               onClose();
               if (!home) return;

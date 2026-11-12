@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Github, Linkedin, Mail, Menu } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 import { scrollToId } from "../lib/smoothScroll";
+import { homeSection } from "../lib/navigation";
 
 export const LINKS = [
   ["projects", "work", "Projects"],
@@ -70,7 +71,7 @@ export default function Nav() {
           {LINKS.map(([key, id]) => (
             <Link
               key={id}
-              to={home ? `#${id}` : `/#${id}`}
+              to={home ? `#${id}` : homeSection(id)}
               onClick={go(home, id)}
               data-testid={`nav-link-${key}`}
               data-cursor="go to"

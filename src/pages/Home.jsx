@@ -10,12 +10,13 @@ import Words from "../components/Words";
 import { scrollToId } from "../lib/smoothScroll";
 
 export default function Home() {
-  const { hash } = useLocation();
+  const { hash, search } = useLocation();
   useEffect(() => {
-    if (!hash) return;
-    const t = setTimeout(() => scrollToId(hash.slice(1), true), 120);
+    const id = hash.slice(1) || new URLSearchParams(search).get("section");
+    if (!id) return;
+    const t = setTimeout(() => scrollToId(id, true), 120);
     return () => clearTimeout(t);
-  }, [hash]);
+  }, [hash, search]);
   return (
     <>
       <main>

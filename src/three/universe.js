@@ -8,7 +8,7 @@ import { KEYS, SPACE, blend } from "./spaceStates";
 
 const FOV = 35;
 const damp = (v, t, k, dt) => v + (t - v) * (1 - Math.exp(-k * dt));
-const gauss = () => Math.sqrt(-2 * Math.log(Math.random() + 1e-9)) * Math.cos(2 * Math.PI * Math.random());
+const gauss = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random());
 
 function sampleName(w, h) {
   const mobile = w < 768;
@@ -43,7 +43,7 @@ function sampleName(w, h) {
       if (filled(x, y)) pts.push(x, y);
     }
   }
-  const total = Math.max(pts.length / 2, 1);
+  const total = pts.length / 2;
   const keep = Math.min(total, cap);
   const j = 0.9;
   const out = new Float32Array(keep * 3);
@@ -174,6 +174,8 @@ export function createUniverse(container, { getMode, onLost, onReady }) {
   const resize = () => {
     const w = container.clientWidth;
     const h = container.clientHeight;
+    // DevTools and orientation changes can briefly give the canvas no size.
+    if (w <= 0 || h <= 0) return;
     const rebuild = !stars || w !== s.w || Math.abs(h - s.h) > 120;
     s.w = w;
     s.h = h;

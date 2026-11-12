@@ -19,9 +19,9 @@ export default function Universe() {
       } catch (e) {
         /* font api unavailable */
       }
-      const { createUniverse } = await import("../three/universe");
-      if (cancelled) return;
       try {
+        const { createUniverse } = await import("../three/universe");
+        if (cancelled) return;
         api = createUniverse(ref.current, {
           getMode: () => modeRef.current,
           onReady: (i) => universeBus.ready(i),
@@ -30,6 +30,8 @@ export default function Universe() {
         universeBus.attach(api);
         window.__universe = api;
       } catch (e) {
+        if (cancelled) return;
+        console.warn("Portfolio animation unavailable; displaying the accessible fallback.", String(e?.stack || e));
         setFailed(true);
         universeBus.ready({ failed: true });
       }
