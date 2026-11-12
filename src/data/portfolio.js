@@ -8,7 +8,7 @@ export const PROFILE = {
   credly: "https://www.credly.com/badges/3113b5a8-1f0c-42d1-91b8-78d5d4799aab",
 };
 
-const PREVIEWS = "https://raw.githubusercontent.com/Jenish-Shobhit/Jenish-Shobhit/main/assets/previews";
+const PREVIEWS = "/assets/previews";
 
 export const PROJECTS = [
   {
