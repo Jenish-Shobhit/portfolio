@@ -1,7 +1,22 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { PROJECTS } from './src/data/portfolio.js';
+
+function pagesEntries() {
+  return {
+    name: 'pages-entries',
+    writeBundle(output) {
+      const html = readFileSync(resolve(output.dir, 'index.html'), 'utf8');
+      for (const { id } of PROJECTS) {
+        const dir = resolve(output.dir, 'work', id);
+        mkdirSync(dir, { recursive: true });
+        writeFileSync(resolve(dir, 'index.html'), html);
+      }
+    },
+  };
+}
 
 function portablePreview() {
   return {
@@ -28,9 +43,10 @@ function portablePreview() {
 
 export default defineConfig(({ mode }) => {
   const portable = mode === 'portable';
+  const pages = mode === 'pages';
   return {
-    base: portable ? './' : '/',
-    plugins: [react(), ...(portable ? [portablePreview()] : [])],
+    base: portable ? './' : pages ? '/portfolio/' : '/',
+    plugins: [react(), ...(portable ? [portablePreview()] : []), ...(pages ? [pagesEntries()] : [])],
     build: {
       sourcemap: false,
       outDir: portable ? 'portable' : 'dist',

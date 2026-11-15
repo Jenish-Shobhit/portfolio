@@ -32,6 +32,10 @@ The site needs no backend or API keys. Google Fonts supplies typography; YouTube
 
 ## Deployment
 
-The production output is static. When setting up AWS hosting, serve `dist/` over HTTPS and configure unknown application paths such as `/work/paneflo` to return `/index.html`. Keep missing asset responses separate from that SPA fallback. Domain selection and AWS provisioning are a subsequent step; this repository does not create billable resources.
+The live site is hosted at https://jenish-shobhit.github.io/portfolio/. The GitHub Pages workflow builds and deploys each push to `main`; it can also be run manually from the Actions tab.
+
+`npm run build:pages` builds for the `/portfolio/` base path and generates entry pages for all eight case studies, so direct links and refreshes work on GitHub Pages. To check this build locally, run `npm run preview` and open `/portfolio/`.
+
+The standard `npm run build` output remains suitable for hosting at a domain root. Configure unknown application paths such as `/work/paneflo` to return `/index.html`, keeping missing asset responses separate from that SPA fallback.
 
 See [recovery notes](docs/recovery.md) for source provenance and [verification notes](docs/verification.md) for what was checked.

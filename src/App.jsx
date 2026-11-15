@@ -46,7 +46,7 @@ function Shell() {
 export default function App() {
   const Router = window.location.protocol === "file:" ? HashRouter : BrowserRouter;
   return (
-    <Router>
+    <Router basename={Router === BrowserRouter ? import.meta.env.BASE_URL : undefined}>
       <Shell />
     </Router>
   );

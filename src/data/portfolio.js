@@ -8,7 +8,7 @@ export const PROFILE = {
   credly: "https://www.credly.com/badges/3113b5a8-1f0c-42d1-91b8-78d5d4799aab",
 };
 
-const PREVIEWS = globalThis.location?.protocol === "file:" ? "./assets/previews" : "/assets/previews";
+const PREVIEWS = globalThis.location?.protocol === "file:" ? "./assets/previews" : `${import.meta.env?.BASE_URL ?? "/"}assets/previews`;
 
 export const PROJECTS = [
   {
